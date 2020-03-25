@@ -1,0 +1,219 @@
+#App,.base,.container{height: 100%;}
+.container{position: relative;}
+.fl{float: left;}
+.fr{float: right;}
+.pr{position: relative;}
+.pa{position: absolute;}
+.inlineblock{display: inline-block;}
+.block{display: block;}
+.hide{display: none;}
+.ellipsis{
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.clearboth{
+    &:after{
+        content: "";
+        display: table;
+        visibility: hidden;
+        clear: both;
+    }
+}
+
+
+
+
+
+
+// 按钮
+.btn{
+    width: 120px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    border: 0;
+    cursor: pointer;
+}
+.btn-gray{
+    margin: 0 40px 0 0;
+   background: #BFBFBF;
+}
+.btn-blue{
+    background: #00A0E9;
+}
+
+
+
+// table
+.table{
+    .table-a-table{
+        height: 100%;
+        border: 1px solid #EBEBEB;
+        overflow: auto;
+    }
+    .ant-table-small{
+        border: 0;
+    }
+    .ant-table-thead tr th div{
+        font-weight: bold;
+        color: #333;
+     }
+    .ant-table-thead > tr.ant-table-row-hover > td, .ant-table-tbody > tr.ant-table-row-hover > td,
+    .ant-table-thead > tr:hover > td, .ant-table-tbody > tr:hover > td,.ant-table-tbody tr:nth-child(2n){
+        background: #FAFAFA;
+    }
+    .ant-table-tbody > tr > td,
+    .ant-table-thead > tr > td{
+        height: 40px;
+       padding: 0 8px!important;
+    }
+}
+
+
+// 模块输出监控-(table+ul)
+.table-acc{
+    height: 100%;
+    //padding: 20px 0 20px 16px;
+    .table-ai-items{
+        padding: 0 20px 0 0;
+        font-size: 15px;
+        font-weight: bold;
+        color:  #4D4D4D;
+    }
+    .table-at-wrap{
+        width: 70%;
+        height: 100%;
+        top: 0;
+        left: 16px;
+        padding: 60px 0 20px 0;
+    }
+    .table-a-count{
+        width: 25%;
+        height: 100%;
+        top: 0;
+        //padding: 57px 0 0 0;
+        right: 0;
+        .table-ac-title{
+            text-align: center;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.65);
+            font-weight: bold;
+            //margin: 0 0 15px 0;
+        }
+        .table-ac-ul{
+            height: 70%;
+            overflow: auto;
+            li{
+                color: #333;
+                line-height: 30px;
+                &:before{
+                    display: inline-block;
+                    content: "";
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    margin: 0 5px 0 0;
+                    background: #CAD3DC;
+                }
+            }
+        }
+    }
+}
+
+.text-center{
+    text-align: center;
+}
+
+.pull-left{
+    float: left
+}
+.pull-right{
+    float: right;
+}
+
+.flex{
+    display: flex;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC!important;
+}
+
+//滚动条
+//  ::-webkit-scrollbar {
+//         width: 6px;
+//         height: 8px;
+//         background-color: transparent
+//       }
+
+//       ::-webkit-scrollbar-track {
+//         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+//         border-radius: 10px;
+//         background-color: transparent
+//       }
+
+//       ::-webkit-scrollbar-thumb {
+//         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+//         background-color: #999;
+//       }
+
+
+//暂时  隐藏配置项出现时，body的滚动条
+body {
+    //overflow-x: hidden;
+    //min-width: 1200px;
+}
+.custom-title{
+    span {
+        color: #76AEFA;
+        font-size: 12px;
+        padding-right: 4px;
+    }
+    font-size:16px;
+    font-weight:bold;
+    color:rgb(89,89,89);
+}
+.ant-select-search__field{
+    padding: 0;
+}
+//返回标签样式
+.back{
+    width: 2.8rem;
+    height: 2.8rem;
+    overflow: hidden;
+    border-radius: 50%;
+    padding: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background:rgba(88,157,249,1);
+    cursor: pointer;
+    margin-right: 2rem;
+    &:hover{
+        color: #eee;
+        background-color: rgba(88,157,249,0.8);
+    }
+    .iconfont{
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+@media only screen and (min-width: 1200px) {
+    html,body {
+        font-size: 12px !important;
+    }
+}
+@media only screen and (min-width: 1900px) {
+    html,body {
+        font-size: 14px !important;
+    }
+}
