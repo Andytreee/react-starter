@@ -6,7 +6,7 @@ import zhCN from 'antd/es/locale-provider/zh_CN';
 import renderRoutes from './utils/renderRoutes';
 import routes from './pages/route';
 import { inject, observer } from 'mobx-react';
-import './css/reset.scss';
+import './css/reset.css';
 import './css/common.less';
 
 @observer

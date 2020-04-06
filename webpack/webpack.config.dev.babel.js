@@ -9,6 +9,8 @@ const address = require('address');
 const defaultGateway = require('default-gateway');
 const { openBrowser } = require('./openBrowser');
 const { getPortPromise } = require('portfinder');
+const apiMocker = require('mocker-api');
+const { prefix } = require('../src/server/config.js')
 
 // This can only return an IPv4 address
 const result = defaultGateway.v4.sync();
@@ -40,11 +42,16 @@ const config = webpackMerge(baseConfig, {
         historyApiFallback: true, // using html5 router.
         contentBase: resolve(dist),
         proxy: {
-            '/api/v1': {
+            [prefix]: {
                 target: `http://${PROXY_HOST}`,
                 changeOrigin: true,
                 secure: false,
+                stats: "errors-only",     //终端仅打印 error
             }
+        },
+        // mock数据
+        before(app){
+            apiMocker(app, resolve('./mocker.js'))
         }
     }
 });

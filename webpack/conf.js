@@ -1,6 +1,6 @@
 import path from "path";
 
-export const dist = "../dist"; // 打包目录
+export const dist = "../build"; // 打包目录
 export const build = "../build"; // 打包目录
 export const src = "../src"; // 源码目录
 export const PUBLIC = '../public'; // 公共资源目录

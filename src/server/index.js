@@ -1,8 +1,8 @@
 import axios from 'axios';
-import api from './api'
+import api from './API_LIST'
 import qs from 'qs';
 import { message } from 'antd';
-import { API_CONFIG } from 'config';
+import API_CONFIG  from './config';
 
 const {
     baseURL,
@@ -61,4 +61,5 @@ const APIFunction = Object.create(null);
 for (const key in api) {
     APIFunction[key] = gen(api[key])
 }
+
 export default APIFunction

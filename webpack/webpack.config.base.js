@@ -5,6 +5,7 @@ import SizePlugin from 'size-plugin';
 import { build, resolve, src, PUBLIC } from './conf';
 import {theme} from "./theme";
 import scssPreset from './scssPreset';
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 export default {
     output: {
@@ -23,11 +24,19 @@ export default {
         }
     },
     module: {
+        noParse: /jquery|lodash/,
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 include: resolve(src),
-                use: ['babel-loader']
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(woff|eot|ttf|svg)$/,
@@ -47,15 +56,15 @@ export default {
                 loader: 'html-loader?minimize=false'
             },
             {
-                // 图片加载处理
-                test: /\.(png|jpg|jpeg|gif|ico|svg)$/,
+                test: /\.(png|jpg|gif|jpeg|webp|svg|eot|ttf|woff|woff2)$/,
                 include: resolve(src),
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 1,
-                            name: 'images/[name].[ext]'
+                            limit: 10240,  // 超过10k才打包
+                            name: '[name]_[hash:6].[ext]',
+                            outputPath: 'assets'
                         }
                     }
                 ]
@@ -76,12 +85,10 @@ export default {
             },
             {
                 test: /\.s[ac]ss$/i,
+                include: [resolve('../node_modules'), resolve(src)],
                 use: [
-                    // Creates `style` nodes from JS strings
                     'style-loader',
-                    // Translates CSS into CommonJS
                     'css-loader',
-                    // Compiles Sass to CSS
                     {
                         loader: 'postcss-loader',  options: {
                             options: {},
@@ -116,6 +123,16 @@ export default {
                 to: resolve(build),
                 toType: 'dir'
             }
-        ])
+        ]),
+	    new AddAssetHtmlPlugin([
+		    {
+			    // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
+			    filepath: require.resolve(path.resolve(__dirname, 'public/vendor/lodash.dll.js')),
+			    // 文件输出目录
+			    outputPath: 'vendor',
+			    // 脚本或链接标记的公共路径
+			    publicPath: 'vendor'
+		    }
+	    ])
     ]
 };
