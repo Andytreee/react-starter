@@ -4,6 +4,7 @@ import baseConfig from "./webpack.config.base";
 import { theme } from "./theme.js";
 import webpackMerge from "webpack-merge";
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 export default webpackMerge(baseConfig, {
     devtool: "source-map",
@@ -22,7 +23,8 @@ export default webpackMerge(baseConfig, {
                     name: 'chunk-vendors',
                     test: /[\\\/]node_modules[\\\/]/,
                     priority: -10,
-                    chunks: 'initial'
+                    chunks: 'initial',
+                    minChunks: 2 //最少引入了1次
                 },
                 common: {
                     name: 'chunk-common',
@@ -74,11 +76,15 @@ export default webpackMerge(baseConfig, {
                     extractComments: false
                 }
             )
-        ]
+        ],
+        runtimeChunk: {
+            name: 'manifest'
+        }
     },
     plugins: [
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['../dist']
-        })
+        }),
+        new BundleAnalyzerPlugin(),
     ]
 });

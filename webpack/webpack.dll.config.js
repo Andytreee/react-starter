@@ -7,8 +7,7 @@ module.exports = {
 	mode: 'production',
 	entry: {
 		lodash: ['lodash'],
-		react: ['react'],
-		reactDom: ['react-dom'],
+		react: ['react', 'react-dom'],
 		mobx: ['mobx'],
 	},
 	output: {
@@ -32,7 +31,7 @@ module.exports = {
 		new webpack.DllPlugin({
 			// 描述动态链接库的 manifest.json 文件输出时的文件名称
 			// 由于每次打包生产环境时会清空 dist 文件夹，因此这里我将它们存放在了 public 文件夹下
-			path: path.resolve('./build/public/vendor/', '[name].manifest.json'),
+			path: path.resolve('./build/public/vendor/[name].manifest.json'),
 			// 动态链接库的全局变量名称，需要和 output.library 中保持一致
 			// 该字段的值也就是输出的 manifest.json 文件 中 name 字段的值
 			// 例如 lodash.manifest.json 中就有 "name": "lodash_dll_lib"

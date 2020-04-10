@@ -127,7 +127,7 @@ export default {
 	    new AddAssetHtmlPlugin([
 		    {
 			    // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
-			    filepath: require.resolve(path.resolve(__dirname, 'public/vendor/lodash.dll.js')),
+			    filepath: resolve('../build/public/vendor/lodash.dll.js'),
 			    // 文件输出目录
 			    outputPath: 'vendor',
 			    // 脚本或链接标记的公共路径
