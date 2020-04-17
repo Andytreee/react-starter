@@ -10,9 +10,4 @@ module.exports = {
   src: '../src',   // 源码路径
   PUBLIC: '../public',   // 公共资源路径
   resolve,
-  dllLibs: [
-    resolve(`${PUBLIC}/dll/lodash.dll.js`),
-    resolve(`${PUBLIC}/dll/react.dll.js`),
-    resolve(`${PUBLIC}/dll/mobx.dll.js`),
-  ]
 };

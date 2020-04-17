@@ -84,17 +84,8 @@ export default webpackMerge(baseConfig, {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new BundleAnalyzerPlugin(),
-
-        new AddAssetHtmlPlugin(
-            dllLibs.map( filepath => ({
-                // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
-                filepath,
-                // 文件输出目录
-                outputPath: 'vendor',
-                // 脚本或链接标记的公共路径
-                publicPath: 'vendor'
-            }) )
-        )
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        }),
     ],
 });
