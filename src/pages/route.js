@@ -4,14 +4,14 @@ import loadable from '@loadable/component'
 const Header = loadable(() => import(
     /* webpackPrefetch: true */
     /* webpackChunkName: 'Header'*/
-    '../components/Header'
+    '../components/Header.js'
     ));
 
 const routes = [
     {
         path: '/',
         exact: true,
-        component:  [<Header/>],
+        component:  props => <Header {...props}/>,
         requiresAuth: true,
     }
 ];

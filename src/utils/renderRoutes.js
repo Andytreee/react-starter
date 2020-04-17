@@ -11,14 +11,11 @@ const renderRoutes = (routes, authed, authPath = '/login', extraProps = {}, swit
                 strict={route.strict}
                 render={ props => {
                     if (!route.requiresAuth || authed || route.path === authPath) {
-                        return route.component.map( component => ({
-                            ...component,
-                            props: {
-                                ...props,
-                                ...extraProps,
-                                route
-                            }
-                        }))
+                        return route.component({
+                            ...props,
+                            ...extraProps,
+                            route
+                        })
                     }
                     return <Redirect to={{ pathname: authPath, state: { from: props.location } }} />
                 }}
