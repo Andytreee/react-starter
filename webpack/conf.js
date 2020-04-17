@@ -1,9 +1,18 @@
-import path from "path";
+const path = require("path");
 
-export const dist = "../build"; // 打包目录
-export const build = "../build"; // 打包目录
-export const src = "../src"; // 源码目录
-export const PUBLIC = '../public'; // 公共资源目录
-export const resolve = function(url) {
+function resolve(url) {
   return path.resolve(__dirname, url);
+}
+const PUBLIC = '../public';
+
+module.exports = {
+  dist: '../dist',  // 打包路径
+  src: '../src',   // 源码路径
+  PUBLIC: '../public',   // 公共资源路径
+  resolve,
+  dllLibs: [
+    resolve(`${PUBLIC}/dll/lodash.dll.js`),
+    resolve(`${PUBLIC}/dll/react.dll.js`),
+    resolve(`${PUBLIC}/dll/mobx.dll.js`),
+  ]
 };

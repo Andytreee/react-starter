@@ -1,16 +1,15 @@
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CasesensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import SizePlugin from 'size-plugin';
-import { build, resolve, src, PUBLIC } from './conf';
-import {theme} from "./theme";
-import scssPreset from './scssPreset';
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CasesensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const { dist, resolve, src, PUBLIC, dllLibs } = require('./conf');
+const {theme} = require("./theme");
+const scssPreset = require('./scssPreset');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
-export default {
+module.exports =  {
     output: {
-        path: resolve(build),
-        filename: `js/[name].[hash:8].js`
+        path: resolve(dist),
+        filename: `js/[name].[hash:8].js`,
     },
     resolve: {
         extensions: ['.js', '.jsx', '.scss', '.css', '.less'],
@@ -108,9 +107,8 @@ export default {
             },
         ]
     },
-
+    externals: [ 'React', 'Lodash', 'Mobx'],
     plugins: [
-        new SizePlugin(), //Prints the gzipped sizes of your webpack assets and the changes since the last build.
         new CasesensitivePathsPlugin(),
         new HtmlWebpackPlugin({
             template: resolve(PUBLIC + '/index.html'),
@@ -120,19 +118,19 @@ export default {
         new CopyWebpackPlugin([
             {
                 from: resolve(PUBLIC),
-                to: resolve(build),
+                to: resolve(dist),
                 toType: 'dir'
             }
         ]),
-	    new AddAssetHtmlPlugin([
-		    {
-			    // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
-			    filepath: resolve('../build/public/vendor/lodash.dll.js'),
-			    // 文件输出目录
-			    outputPath: 'vendor',
-			    // 脚本或链接标记的公共路径
-			    publicPath: 'vendor'
-		    }
-	    ])
+        new AddAssetHtmlPlugin(
+            dllLibs.map( filepath => ({
+                // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
+                filepath,
+                // 文件输出目录
+                outputPath: 'vendor',
+                // 脚本或链接标记的公共路径
+                publicPath: 'vendor'
+            }) )
+        )
     ]
 };

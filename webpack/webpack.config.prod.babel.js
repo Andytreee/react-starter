@@ -1,10 +1,10 @@
-import { resolve, src } from "./conf";
-import {CleanWebpackPlugin} from "clean-webpack-plugin";
-import baseConfig from "./webpack.config.base";
-import { theme } from "./theme.js";
-import webpackMerge from "webpack-merge";
+const { resolve, src, dllLibs } = require("./conf");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const baseConfig = require("./webpack.config.base");
+const webpackMerge = require("webpack-merge");
 const TerserPlugin = require('terser-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 export default webpackMerge(baseConfig, {
     devtool: "source-map",
@@ -16,6 +16,7 @@ export default webpackMerge(baseConfig, {
         rules: [
         ]
     },
+    externals: [ 'react', 'lodash', 'mobx'],
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -82,9 +83,18 @@ export default webpackMerge(baseConfig, {
         }
     },
     plugins: [
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ['../dist']
-        }),
+        new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin(),
-    ]
+
+        new AddAssetHtmlPlugin(
+            dllLibs.map( filepath => ({
+                // 要添加到编译中的文件的绝对路径，以及生成的HTML文件。支持globby字符串
+                filepath,
+                // 文件输出目录
+                outputPath: 'vendor',
+                // 脚本或链接标记的公共路径
+                publicPath: 'vendor'
+            }) )
+        )
+    ],
 });

@@ -1,22 +1,21 @@
-import { dist, resolve, src } from "./conf";
-import baseConfig from './webpack.config.base';
-import { theme } from './theme';
-import webpack from 'webpack';
-import webpackMerge from 'webpack-merge';
-import url from 'url';
-import chalk from 'chalk';
+const { dist, resolve, src } = require("./conf");
+const baseConfig = require('./webpack.config.base');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const url = require('url');
+const chalk = require('chalk');
 const address = require('address');
 const defaultGateway = require('default-gateway');
 const { openBrowser } = require('./openBrowser');
 const { getPortPromise } = require('portfinder');
 const apiMocker = require('mocker-api');
-const { prefix } = require('../src/server/config.js')
+const { prefix } = require('../src/server/config.js');
 
 // This can only return an IPv4 address
 const result = defaultGateway.v4.sync();
 const lanUrl = address.ip(result && result.interface);
 const HOST = '0.0.0.0';
-const PROXY_HOST = process.env.NODE_HOST || '10.28.200.184:8888';
+const PROXY_HOST = process.env.NODE_HOST;
 const useHttps = false;
 
 const config = webpackMerge(baseConfig, {
@@ -95,4 +94,4 @@ const merge = async config => {
     return config
 };
 
-export default merge(config);
+module.exports = merge(config);
